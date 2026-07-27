@@ -6,13 +6,13 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>4.1.0</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent from questionRepository -->
     </parent>
     <groupId>com.yattsun</groupId>
-    <artifactId>it_wordle</artifactId>
+    <artifactId>it_study</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>it_wordle</name>
-    <description>it_wordle</description>
+    <name>it_study</name>
+    <description>it_study</description>
     <url/>
     <licenses>
         <license/>

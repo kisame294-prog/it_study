@@ -1,10 +1,10 @@
-package com.yattsun.it_wordle;
+package com.yattsun.it_study;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ItWordleApplicationTests {
+class ItStudyApplicationTests {
 
     @Test
     void contextLoads() {
