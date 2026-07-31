@@ -17,4 +17,11 @@ public class QuestionService {
                 .orElseThrow();
     }
 
+    public boolean checkAnswer(Long questionId, Integer userAnswer){
+        Question question = questionRepository.findById(questionId)
+                .orElseThrow();
+
+        return question.getAnswer().equals(userAnswer);
+    }
+
 }

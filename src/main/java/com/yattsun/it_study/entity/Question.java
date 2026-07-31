@@ -8,8 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@Entity
-@Table(name = "questions")
+/*一問一答問題データ*/
 public class Question {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
