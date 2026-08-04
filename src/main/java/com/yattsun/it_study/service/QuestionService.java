@@ -12,12 +12,13 @@ public class QuestionService {
         this.questionRepository = questionRepository;
     }
 
-    public Question getQuestion(Long id){
+    public Question getQuestion(Long id) {
         return questionRepository.findById(id)
                 .orElseThrow();
     }
 
-    public boolean checkAnswer(Long questionId, Integer userAnswer){
+    /*ユーザーの解答があっているかどうか*/
+    public boolean checkAnswer(Long questionId, Integer userAnswer) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow();
 
