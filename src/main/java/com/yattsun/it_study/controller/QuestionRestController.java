@@ -1,11 +1,9 @@
 package com.yattsun.it_study.controller;
 
+import com.yattsun.it_study.dto.AnswerRequest;
 import com.yattsun.it_study.entity.Question;
 import com.yattsun.it_study.service.QuestionService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/questions")
@@ -19,5 +17,13 @@ public class QuestionRestController {
     @GetMapping("/{id}")
     public Question getQuestion(@PathVariable Long id){
         return questionService.getQuestion(id);
+    }
+
+    @PostMapping("/answer")
+    public boolean answer(@RequestBody AnswerRequest answerRequest){
+        return questionService.checkAnswer(
+                answerRequest.getQuestionId(),
+                answerRequest.getAnswer()
+        );
     }
 }
