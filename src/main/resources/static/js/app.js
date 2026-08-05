@@ -1,7 +1,8 @@
+let currentQuestionId = 1;
 
-async function loadQuestion(){
+async function loadQuestion(questionId){
     //Springから「問題（questions）」を貰う
-    const response = await fetch("/api/questions/1");
+    const response = await fetch('/api/questions/${questionId}');
     //JSONをJSのオブジェクトに変換
     const question = await response.json();
 
@@ -24,15 +25,17 @@ async function loadQuestion(){
 
     document.getElementById("choice4")
         .addEventListener("click", () => sendAnswer(4));
+
+    document.getElementById("nextButton").addEventListener("click", nextQuestion)
+
 }
 
-loadQuestion();
+loadQuestion(currentQuestionId);
 
 //ユーザーの解答を送信する処理
 async function  sendAnswer(userAnswer){
-
     const data = {
-        questionId: 1,
+        questionId: currentQuestionId,
         answer: userAnswer
     };
 
@@ -46,9 +49,11 @@ async function  sendAnswer(userAnswer){
 
     const result = await response.json();
 
-    if(result){
-        alert("正解！");
-    }else{
-        alert("不正解...");
-    }
+    document.getElementById("result").textContent = result.correct ? "正解!" : "不正解";
+    document.getElementById("explanation").textContent = result.explanation;
+}
+
+function nextQuestion(){
+    currentQuestionId ++;
+    loadQuestion(currentQuestionId);
 }

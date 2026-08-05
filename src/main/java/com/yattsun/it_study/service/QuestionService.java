@@ -1,5 +1,6 @@
 package com.yattsun.it_study.service;
 
+import com.yattsun.it_study.dto.AnswerResponse;
 import com.yattsun.it_study.entity.Question;
 import com.yattsun.it_study.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
@@ -18,11 +19,17 @@ public class QuestionService {
     }
 
     /*ユーザーの解答があっているかどうか*/
-    public boolean checkAnswer(Long questionId, Integer userAnswer) {
+    public AnswerResponse checkAnswer(Long questionId, Integer userAnswer) {
         Question question = questionRepository.findById(questionId)
                 .orElseThrow();
+        boolean correct = question.getAnswer().equals(userAnswer);
 
-        return question.getAnswer().equals(userAnswer);
+        AnswerResponse answerResponse = new AnswerResponse();
+
+        answerResponse.setCorrect(correct);
+        answerResponse.setExplanation(question.getExplanation());
+
+        return answerResponse;
     }
 
 }

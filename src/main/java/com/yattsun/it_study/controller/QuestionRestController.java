@@ -1,6 +1,7 @@
 package com.yattsun.it_study.controller;
 
 import com.yattsun.it_study.dto.AnswerRequest;
+import com.yattsun.it_study.dto.AnswerResponse;
 import com.yattsun.it_study.entity.Question;
 import com.yattsun.it_study.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
@@ -19,8 +20,9 @@ public class QuestionRestController {
         return questionService.getQuestion(id);
     }
 
+    /*ユーザーの解答を正誤判定し、サーバーへ送る*/
     @PostMapping("/answer")
-    public boolean answer(@RequestBody AnswerRequest answerRequest){
+    public AnswerResponse answer(@RequestBody AnswerRequest answerRequest){
         return questionService.checkAnswer(
                 answerRequest.getQuestionId(),
                 answerRequest.getAnswer()
