@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>IT用語の分類</title>
+</head>
+<body>
+<h1>カテゴリ選択</h1>
+    <div th:each="category : ${categories}">
+        <a th:href="@{/quiz(category=${category})}"
+           th:text="${category}">
+        </a>
+    </div>
+</body>
+</html>

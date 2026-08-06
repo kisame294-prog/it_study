@@ -5,6 +5,8 @@ import com.yattsun.it_study.entity.Question;
 import com.yattsun.it_study.repository.QuestionRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class QuestionService {
     private final QuestionRepository questionRepository;
@@ -16,6 +18,14 @@ public class QuestionService {
     public Question getQuestion(Long id) {
         return questionRepository.findById(id)
                 .orElseThrow();
+    }
+
+    public List<String> getCategories(){
+        return questionRepository.findCategories();
+    }
+
+    public List<Question> getQuestionByCategory(String category){
+        return questionRepository.findByCategoryOrderByIdAsc(category);
     }
 
     /*ユーザーの解答があっているかどうか*/

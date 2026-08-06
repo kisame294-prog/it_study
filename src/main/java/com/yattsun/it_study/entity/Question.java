@@ -23,4 +23,5 @@ public class Question {
     private String choice4;
     private Integer answer;
     private String explanation;
+    private String category;
 }
