@@ -2,7 +2,7 @@ let currentQuestionId = 1;
 
 async function loadQuestion(questionId){
     //Springから「問題（questions）」を貰う
-    const response = await fetch('/api/questions/${questionId}');
+    const response = await fetch(`/api/questions/${questionId}`);
     //JSONをJSのオブジェクトに変換
     const question = await response.json();
 
@@ -54,6 +54,11 @@ async function  sendAnswer(userAnswer){
 }
 
 function nextQuestion(){
+    /*前回の結果を消す処理*/
+    document.getElementById("result").textContent = "";
+    document.getElementById("explanation").textContent = "";
+
+    /*次の問題へ*/
     currentQuestionId ++;
     loadQuestion(currentQuestionId);
 }
