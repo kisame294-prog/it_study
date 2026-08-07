@@ -6,6 +6,8 @@ import com.yattsun.it_study.entity.Question;
 import com.yattsun.it_study.service.QuestionService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/questions")
 public class QuestionRestController {
@@ -27,5 +29,11 @@ public class QuestionRestController {
                 answerRequest.getQuestionId(),
                 answerRequest.getAnswer()
         );
+    }
+
+    @GetMapping("/category")
+    public List<Question> getQuestionByCategory(
+            @RequestParam String category){
+        return questionService.getQuestionByCategory(category);
     }
 }

@@ -1,18 +1,7 @@
-let currentQuestionId = 1;
+let currentIndex = 0;
+let questions = [];
 
-async function loadQuestion(questionId) {
-    //Springから「問題（questions）」を貰う
-    const response = await fetch(`/api/questions/${questionId}`);
-    //JSONをJSのオブジェクトに変換
-    const question = await response.json();
-
-    //「id="列名"」の部分を.textContentを使ってJSONの内容を書き換える
-    document.getElementById("question").textContent = question.question;
-    document.getElementById("choice1").textContent = question.choice1;
-    document.getElementById("choice2").textContent = question.choice2;
-    document.getElementById("choice3").textContent = question.choice3;
-    document.getElementById("choice4").textContent = question.choice4;
-
+document.addEventListener("DOMContentLoaded", () => {
     //クリックイベント登録
     document.getElementById("choice1")
         .addEventListener("click", () => sendAnswer(1));
@@ -24,14 +13,35 @@ async function loadQuestion(questionId) {
         .addEventListener("click", () => sendAnswer(4));
     document.getElementById("nextButton").addEventListener("click", nextQuestion)
 
+    loadQuestion();
+});
+
+//Springから「問題（questions）」を貰う
+async function loadQuestion() {
+    const category = new URLSearchParams(window.location.search).get("category");
+
+    const response = await fetch(`/api/questions/category?category=${category}`);
+    //JSONをJSのオブジェクトに変換
+    questions = await response.json();
+
+    displayQuestion();
 }
 
-loadQuestion(currentQuestionId);
+function displayQuestion(){
+    const question = questions[currentIndex]
+
+    //「id="列名"」の部分を.textContentを使ってJSONの内容を書き換える
+    document.getElementById("question").textContent = question.question;
+    document.getElementById("choice1").textContent = question.choice1;
+    document.getElementById("choice2").textContent = question.choice2;
+    document.getElementById("choice3").textContent = question.choice3;
+    document.getElementById("choice4").textContent = question.choice4;
+}
 
 //ユーザーの解答を送信する処理
 async function sendAnswer(userAnswer) {
     const data = {
-        questionId: currentQuestionId,
+        questionId: questions[currentIndex].id,
         answer: userAnswer
     };
 
@@ -56,6 +66,6 @@ function nextQuestion() {
     document.getElementById("explanation").textContent = "";
 
     /*次の問題へ*/
-    currentQuestionId++;
-    loadQuestion(currentQuestionId);
+    currentIndex++;
+    displayQuestion();
 }
